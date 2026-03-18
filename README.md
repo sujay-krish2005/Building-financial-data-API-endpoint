@@ -1,4 +1,3 @@
-# Building-financial-data-API-endpoint
 from flask import Flask, request, jsonify
 import yfinance as yf
 import pandas as pd
@@ -13,10 +12,6 @@ def get_ticker(symbol):
     return yf.Ticker(symbol.upper())
 
 
-# ══════════════════════════════════════════════════════════════
-# ENDPOINT 1: Company Information
-# GET /company/<symbol>
-# ══════════════════════════════════════════════════════════════
 @app.route("/company/<symbol>", methods=["GET"])
 def company_info(symbol):
     """
@@ -69,11 +64,6 @@ def company_info(symbol):
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
-
-# ══════════════════════════════════════════════════════════════
-# ENDPOINT 2: Real-Time Stock Market Data
-# GET /stock/<symbol>
-# ══════════════════════════════════════════════════════════════
 @app.route("/stock/<symbol>", methods=["GET"])
 def stock_market_data(symbol):
     """
@@ -159,12 +149,6 @@ def stock_market_data(symbol):
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
-
-# ══════════════════════════════════════════════════════════════
-# ENDPOINT 3: Historical Market Data
-# POST /historical/<symbol>
-# Body: { "start_date": "YYYY-MM-DD", "end_date": "YYYY-MM-DD", "interval": "1d" }
-# ══════════════════════════════════════════════════════════════
 @app.route("/historical/<symbol>", methods=["POST"])
 def historical_data(symbol):
     """
@@ -253,11 +237,6 @@ def historical_data(symbol):
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
-# ══════════════════════════════════════════════════════════════
-# ENDPOINT 4: Analytical Insights
-# POST /analysis/<symbol>
-# Body: { "start_date": "YYYY-MM-DD", "end_date": "YYYY-MM-DD", "interval": "1d" }
-# ══════════════════════════════════════════════════════════════
 @app.route("/analysis/<symbol>", methods=["POST"])
 def analytical_insights(symbol):
     """
@@ -573,9 +552,6 @@ def analytical_insights(symbol):
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
-# ══════════════════════════════════════════════════════════════
-# Health Check Endpoint
-# ══════════════════════════════════════════════════════════════
 @app.route("/", methods=["GET"])
 def health_check():
     return jsonify({
